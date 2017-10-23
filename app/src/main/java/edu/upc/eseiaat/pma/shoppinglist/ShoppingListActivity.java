@@ -1,9 +1,11 @@
 package edu.upc.eseiaat.pma.shoppinglist;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,6 +58,23 @@ public class ShoppingListActivity extends AppCompatActivity {
 
 
         list.setAdapter(adapter);
+
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> list, View item, int pos, long id) {
+                maybeRemoveItem(pos);
+                return true;
+            }
+        });
+
+    }
+
+    private void maybeRemoveItem(int pos) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+       
+
+        itemList.remove(pos);
+        adapter.notifyDataSetChanged();
 
     }
 

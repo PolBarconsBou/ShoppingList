@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class ShoppingListActivity extends AppCompatActivity {
 
-    private ArrayList<String> itemList;
+    private ArrayList<ShoppingItem> itemList;
     private ShoppingListAdapter adapter;
 
 
@@ -35,10 +35,10 @@ public class ShoppingListActivity extends AppCompatActivity {
         edit_item = (EditText) findViewById(R.id.edit_item);
 
         itemList = new ArrayList<>();
-        itemList.add("Patatas");
-        itemList.add("Nocilla");
-        itemList.add("Zanahorias");
-        itemList.add("Berberechos");
+        itemList.add(new ShoppingItem("Patatas", true));
+        itemList.add(new ShoppingItem("Nocilla", true));
+        itemList.add(new ShoppingItem("Zanahorias"));
+        itemList.add(new ShoppingItem("Berberechos"));
 
         adapter = new ShoppingListAdapter(
                 this,
@@ -100,10 +100,11 @@ public class ShoppingListActivity extends AppCompatActivity {
     private void addItem() {
         String item_text = edit_item.getText().toString();
         if (!item_text.isEmpty()) {
-            itemList.add(item_text);
+            itemList.add(new ShoppingItem(item_text));
             adapter.notifyDataSetChanged();
             edit_item.setText("");
         }
+        list.smoothScrollToPosition(itemList.size()-1);
 
     }
 }

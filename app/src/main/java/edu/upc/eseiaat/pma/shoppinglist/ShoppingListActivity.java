@@ -89,7 +89,7 @@ public class ShoppingListActivity extends AppCompatActivity {
         String fmt = getResources().getString(R.string.confirm_message);
         builder.setMessage(String.format(
                 fmt,
-                itemList.get(pos)
+                itemList.get(pos).getText()
                 ));
         builder.setPositiveButton(R.string.remove, new DialogInterface.OnClickListener() {
             @Override

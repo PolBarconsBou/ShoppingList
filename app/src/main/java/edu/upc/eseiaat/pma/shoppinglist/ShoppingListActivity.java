@@ -1,5 +1,6 @@
 package edu.upc.eseiaat.pma.shoppinglist;
 
+import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -67,14 +68,28 @@ public class ShoppingListActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
 
-    private void maybeRemoveItem(int pos) {
+    private void maybeRemoveItem(final int pos) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-       
+       builder.setTitle(R.string.confirm);
+        builder.setMessage(String.format(
+                "Are you sure you want to remove '%s'?",
+                itemList.get(pos)
+                ));
+        builder.setPositiveButton(R.string.remove, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                itemList.remove(pos);
+                adapter.notifyDataSetChanged();
 
-        itemList.remove(pos);
-        adapter.notifyDataSetChanged();
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, null);
+        builder.create().show();
+
 
     }
 
